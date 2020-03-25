@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -28,6 +29,7 @@ namespace SampleApplication.Controllers
         [ActionName("Change")]
         public ActionResult ChangeCulture(string lang)
         {
+            //https://dotnetfiddle.net/e1BX7M to check available languages in .net
             int numberToDisplay = 12566;
             double percent = 6.44;
             
@@ -42,7 +44,7 @@ namespace SampleApplication.Controllers
             ViewBag.DateNow = DateTime.Now.ToString("D", CultureInfo.CurrentCulture);
             ViewBag.EnglishName = Thread.CurrentThread.CurrentCulture.EnglishName;
             ViewBag.NativeName = Thread.CurrentThread.CurrentCulture.NativeName;
-            ViewBag.Message = "";
+            ViewBag.Message = SampleApplication.App_GlobalResources.Content.ResourceManager.GetString("Message", Thread.CurrentThread.CurrentCulture);
             ViewBag.Languages = new List<SelectListItem>()
             {
                 new SelectListItem() { Text = "English", Value = "en" },
