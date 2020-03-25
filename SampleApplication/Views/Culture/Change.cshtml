@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Change";
+    if(!Request.QueryString["lang"].IsEmpty())
+    {
+        //Culture = UICulture = System.Globalization.CultureInfo.CreateSpecificCulture(Request.QueryString["lang"]).Name;
+    }
+}
+
+<h2>Change</h2>
+<div class="container">
+    <br />
+    @Html.ActionLink("Spain", "Change", "Culture", new { @lang = "es" }, new { @id = "lnkSpain" }) | 
+    @Html.ActionLink("English", "Change", "Culture", new { @lang = "en" }, new { @id = "lnkSpain" }) | 
+    @Html.ActionLink("France", "Change", "Culture", new { @lang = "fr" }, new { @id = "lnkSpain" }) | 
+    @Html.ActionLink("Germany", "Change", "Culture", new { @lang = "de" }, new { @id = "lnkSpain" }) | 
+    @Html.ActionLink("Japan", "Change", "Culture", new { @lang = "ja" }, new { @id = "lnkSpain" }) | 
+    @Html.ActionLink("Italy", "Change", "Culture", new { @lang = "it" }, new { @id = "lnkSpain" }) | 
+    <br />
+
+   @* @Html.DropDownList("ddlLanguages", (List<SelectListItem>)ViewBag.Languages, new { @id = "ddlLanguages" })*@
+    <br />
+    @{ int numberToDisplay = 233233;
+        double percent = 23.44;
+    }
+    <br />
+    Country in English : @ViewBag.EnglishName
+    <br />    Country in Native : @ViewBag.NativeName
+    <br />
+    Number Format : @ViewBag.Number
+    <br />
+    Currency Format : @ViewBag.Currency
+    <br />
+    Percent Format : @ViewBag.Percent
+    <br />
+    Date Format : @ViewBag.DateNow
+
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(() => {
+        $('#ddlLanguages').change(() => {
+            var currentValue = $('#ddlLanguages').val();
+            //console.log(currentValue);
+            
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Change","Culture")',
+                data: "{lang:'" + currentValue + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: (data) => {
+                    //$('.container').empty();
+                    //$('.container').html(data);
+                }
+            })
+            //url.action('Culture', 'ChangeCulture')
+            //$.get("http://localhost:50947/Culture/Change?lang=" + currentValue, (data) => {
+            //});
+    
+        });
+    });
+</script>
